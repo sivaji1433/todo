@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #div{
+        text-align: center;
+        margin: 10px;
+      }
+
+      h1{
+        color: rgba(250, 4, 4, 0.961);
+      }
+    </style>
+  </head>
+  <body>
+    <h1 style="text-align: center;">TODO</h1>
+    <div id="div">
+    <input style="text-align: center;" type="text" name="" id="category" placeholder="category" /><br />
+    <input style="text-align: center;" type="text" name="" id="details" placeholder="details" /><br />
+    <button style="text-align: center;" onclick="handleAdd()">SUBMIT</button>
+  </div>
+    <hr />
+    <div id="container"></div>
+
+    <script>
+      let container = document.getElementById("container");
+      console.log(container);
+
+      function handleAdd() {
+        let todo = document.createElement("div");
+        todo.style.border = "2px solid black";
+        todo.style.textAlign="center"
+        todo.style.backgroundColor="aqua"
+        todo.style.padding="10px"
+
+        let cat = document.getElementById("category");
+        let det = document.getElementById("details");
+
+        if (cat.value == "" || det.value == "") {
+          alert("fields should not be empty");
+        } else {
+          let cat_title = document.createElement("h1");
+          cat_title.innerText = cat.value;
+
+          let det_title = document.createElement("p");
+          det_title.innerText = det.value;
+        
+          todo.appendChild(cat_title)
+          todo.appendChild(det_title)
+          container.appendChild(todo)
+
+          // creating buttons & appending(edit)
+          let edit = document.createElement("button")
+          edit.innerText="EDIT"
+          edit.style.backgroundColor="blue"
+          edit.style.color="white"
+          todo.appendChild(edit)
+         
+          // delete button //
+          let del_ete = document.createElement("button")
+          del_ete.innerText="DELETE"
+          del_ete.style.backgroundColor="red"
+          del_ete.style.color="white"
+          del_ete.style.margin="12px"
+          todo.appendChild(del_ete)
+
+          // complete button //
+          let complete = document.createElement("button")
+          complete.innerText="COMPLETED"
+          complete.style.backgroundColor="green"
+          todo.appendChild(complete)
+
+          // adding eventlistener to buttons
+          edit.addEventListener("click",()=>{
+            cat.value=cat_title.innerText
+            det.value=det_title.innerText
+            container.removeChild(todo)
+          })
+
+          // for delete
+          del_ete.addEventListener("click",()=>{
+            container.removeChild(todo)
+          })
+
+          // for completed
+          complete.addEventListener("click",()=>{
+            det_title.style.textDecoration="line-through"
+            det_title.style.backgroundColor="yellow"
+            todo.style.backgroundColor="green"
+          })
+          cat.value=""
+          det.value=""
+        }
+
+      }
+    </script>
+  </body>
+</html>
